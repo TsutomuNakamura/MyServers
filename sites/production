@@ -1,0 +1,15 @@
+---
+k8s_host:
+  hosts:
+    nuc01:
+      ansible_host: xxx.xxx.xxx.xxx
+    nuc02:
+      ansible_host: xxx.xxx.xxx.xxx
+    nuc03:
+      ansible_host: xxx.xxx.xxx.xxx
+
+root:
+  children:
+    k8s_host:
+  vars:
+    ansible_user: xxx
