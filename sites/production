@@ -1,12 +1,7 @@
 ---
 k8s_host:
   hosts:
-    nuc01:
-      ansible_host: xxx.xxx.xxx.xxx
-    nuc02:
-      ansible_host: xxx.xxx.xxx.xxx
-    nuc03:
-      ansible_host: xxx.xxx.xxx.xxx
+    nuc[00:99]
 
 root:
   children:
