@@ -1,5 +1,7 @@
 ---
 - hosts: k8s_host
+  become: yes
+  become_method: sudo
   roles:
     - common
 #    - kubernetes

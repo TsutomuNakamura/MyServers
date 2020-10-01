@@ -6,5 +6,4 @@ k8s_host:
 root:
   children:
     k8s_host:
-  vars:
-    ansible_user: xxx
+
