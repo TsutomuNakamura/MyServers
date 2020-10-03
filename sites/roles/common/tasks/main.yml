@@ -5,7 +5,9 @@
 
 - name: Validate a host name
   command: /bin/false
-  when: result.stdout != inventory_hostname
+  when:
+    - not ansible_check_mode
+    - result.stdout != inventory_hostname
 
 - name: Upgrade the packages and kernels
   apt:
