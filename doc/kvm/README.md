@@ -38,7 +38,7 @@ $ sudo shutdown -r now
 ## Modify kernel parameter
 
 ```
-$ sudo vim /etc/sysctl.conf
+$ sudo vim /etc/sysctl.d/90-bridge-network.conf
 ```
 
 Add kernel parameters like below.
@@ -49,10 +49,16 @@ net.bridge.bridge-nf-call-iptables = 0
 net.bridge.bridge-nf-call-arptables = 0
 ```
 
-Apply parameters.
+* /etc/udev/rules.d/90-bridge-network.rules
+```
+ACTION=="add", SUBSYSTEM=="module", KERNEL=="br_netfilter", \
+    RUN+="/lib/systemd/systemd-sysctl --prefix=/net/bridge"
+```
+
+Run systemd-sysctl to load new kernel parameters.
 
 ```
-$ sudo systemctl -p
+/lib/systemd/systemd-sysctl --prefix=/net/bridge
 ```
 
 ## Install guest os
