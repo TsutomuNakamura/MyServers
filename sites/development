@@ -1,0 +1,9 @@
+---
+k8s_host:
+  hosts:
+    dnuc[01:99]:
+
+root:
+  children:
+    k8s_host:
+

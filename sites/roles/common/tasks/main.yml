@@ -1,8 +1,11 @@
 ---
-- name: test
-  command: "echo aaaa"
+- name: Get a host name
+  command: uname -n
   register: result
 
-- name: debug
-  debug:
-    msg: "{{ result.stdout }}"
+- name: Validate a host name
+  command: /bin/false
+  when: result.stdout != inventory_hostname
+
+
+
