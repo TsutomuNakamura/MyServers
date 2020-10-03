@@ -7,5 +7,11 @@
   command: /bin/false
   when: result.stdout != inventory_hostname
 
+- name: Upgrade the packages and kernels
+  apt:
+    upgrade: dist
+    update_cache: yes
 
+- name: Reboot a machine (then waiting 600 seconds until turn it on)
+  reboot:
 
