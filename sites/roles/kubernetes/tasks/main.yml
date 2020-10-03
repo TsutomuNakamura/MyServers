@@ -1,0 +1,11 @@
+---
+- name: Install packages for kubernetes
+  apt:
+    name: docker.io
+
+- name: Enable and start docker.io service
+  systemd:
+    name: docker
+    state: started
+    enabled: yes
+
