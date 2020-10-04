@@ -41,8 +41,12 @@
 - name: Apply bridge interface
   template:
     src: 00-installer-config.j2
-    dest: /var/tmp/00-installer-config.j2
+    dest: /etc/netplan/00-installer-config.yaml
+  register: result
 
-- debug:
-    var: ansible_default_ipv4
+# Reboot to apply network config.
+# Is "netplan apply -a" also OK?
+- name: Reboot a machine (then waiting 600 seconds until turn it on)
+  reboot:
+  when: result.changed == true
 
