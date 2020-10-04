@@ -1,9 +1,15 @@
 ---
-- name: Check the cpu has vmx option
+#- name: Check the cpu has vmx option
 
+- name: Get vmx support
+  command: /usr/bin/grep -c -E '(vmx|svm)' /proc/cpuinfo
+  register: result
 
-- name: 
+- name: Check vmx support
   meta: end_play
+  when:
+    - not ansible_check_mode
+    - result.stdout <= 0
 
 - name: Install packages for kvm
   apt:
@@ -17,4 +23,5 @@
       - libosinfo-bin
     update_cache: yes
 
-
+- debug:
+    var: ansible_default_ipv4.address
