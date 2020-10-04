@@ -1,0 +1,14 @@
+network:
+  ethernets:
+    {{ ansible_default_ipv4.interface }}:
+      dhcp4: no
+      dhcp6: no
+  bridges:
+    br0:
+      interfaces: [{{ ansible_default_ipv4.interface }}]
+      dhcp4: no
+      addresses: [{{ ansible_default_ipv4.address }}/{{ default_ipv4_cidr }}]
+      gateway4: {{ ansible_default_ipv4.gateway }}
+      nameservers:
+        addresses: [{% for item in gv_nameservers %}{% if loop.index != 1 %}, {% endif %}{{ item }}{% endfor %}]
+
