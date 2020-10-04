@@ -1,0 +1,20 @@
+---
+- name: Check the cpu has vmx option
+
+
+- name: 
+  meta: end_play
+
+- name: Install packages for kvm
+  apt:
+    pkg:
+      - qemu-kvm
+      - libvirt-daemon-system
+      - libvirt-clients
+      - virtinst
+      - cpu-checker
+      - libguestfs-tools
+      - libosinfo-bin
+    update_cache: yes
+
+

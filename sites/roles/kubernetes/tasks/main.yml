@@ -2,6 +2,7 @@
 - name: Install packages for kubernetes
   apt:
     name: docker.io
+    update_cache: yes
 
 - name: Enable and start docker.io service
   systemd:
