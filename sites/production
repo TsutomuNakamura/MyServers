@@ -1,7 +1,7 @@
 ---
 k8s_host:
   hosts:
-    nuc[00:99]
+    nuc0[1:3]:
 
 root:
   children:
