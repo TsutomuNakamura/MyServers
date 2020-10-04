@@ -13,7 +13,36 @@
   apt:
     upgrade: dist
     update_cache: yes
+  register: result
+
+- name: Install common packages
+  apt:
+    pkg:
+      - subnetcalc
+    update_cache: yes
 
 - name: Reboot a machine (then waiting 600 seconds until turn it on)
   reboot:
+  when: result.changed == true
+
+# Get and convert server's subnetmask to create netplan configuration
+# https://stackoverflow.com/a/50419919/4307818
+- name: Register CIDR network address
+  shell: "/usr/bin/subnetcalc 1.1.1.1 {{ ansible_default_ipv4.netmask }} -n | sed -n '/^Netw/{s#.*/ ##p;q}'"
+  register: default_ipv4_cidr
+
+- name: Validate a host name
+  command: /bin/false
+  when:
+    - not ansible_check_mode
+    - default_ipv4_cidr == ""
+
+# Create bridge interfaces that uses it like kvm, lxc etc
+- name: Apply bridge interface
+  template:
+    src: 00-installer-config.j2
+    dest: /var/tmp/00-installer-config.j2
+
+- debug:
+    var: ansible_default_ipv4
 
